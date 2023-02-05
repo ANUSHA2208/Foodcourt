@@ -1,14 +1,29 @@
-import Home from './pages/Home';
-import {BrowserRouter as Router,Route,Routes} from 'react-router-dom'
-import View from './pages/View';
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+import Router from './routes/Router';
+import Loader from './components/Loader';
+
 
 function App() {
+  const [loading, setLoading] = useState(1)
+
+  useEffect(()=>{
+    setTimeout(() => {
+      setLoading(0)
+    }, 2000);
+  },[])
   return (
     <div className="App">
-    <Routes>
-    <Route path="/" element={<View/>}/>
-    <Route path="/home" element={<Home/>}/>
-    </Routes>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
+        {
+          loading
+          ?
+          <Loader/>
+          :
+          <Router/>
+        }
+      </BrowserRouter>
     </div>
 
   );
